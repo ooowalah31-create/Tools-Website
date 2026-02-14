@@ -1,0 +1,21 @@
+// config.json
+{
+    "name": "tools-get-code",
+    "version": "1.0.0",
+    "description": "Multi-purpose tools with YouTube MP3, TikTok Downloader, and Code Extractor",
+    "main": "index.html",
+    "author": "Aliftzycrt",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^1.6.0",
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "multer": "^1.4.5-lts.1",
+        "ytdl-core": "^4.11.5",
+        "@tobyg74/tiktok-api-dl": "^1.0.13"
+    },
+    "scripts": {
+        "start": "node server.js",
+        "dev": "nodemon server.js"
+    }
+}
