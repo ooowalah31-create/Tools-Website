@@ -1,0 +1,9 @@
+// package.json (for deployment)
+{
+    "name": "tools-get-code",
+    "version": "1.0.0",
+    "description": "Multi Tools Get Code & Downloader",
+    "main": "index.html",
+    "author": "Aliftzycrt",
+    "license": "MIT"
+}
