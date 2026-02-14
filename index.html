@@ -1,0 +1,187 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOOLS GET CODE - POWERED BY ALIFTZYCRT 😍</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Tools Get Code <span class="heart">😍</span></h1>
+            <p>Powered By Aliftzycrt</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="switchTab('getcode')">
+                <i class="fas fa-code"></i> Get Code
+            </button>
+            <button class="nav-btn" onclick="switchTab('youtube')">
+                <i class="fab fa-youtube"></i> YouTube MP3
+            </button>
+            <button class="nav-btn" onclick="switchTab('tiktok')">
+                <i class="fab fa-tiktok"></i> TikTok Downloader
+            </button>
+            <button class="nav-btn" onclick="switchTab('upload')">
+                <i class="fas fa-cloud-upload-alt"></i> Upload MP3
+            </button>
+        </div>
+
+        <!-- Get Code Tab -->
+        <div id="getcode-tab" class="tab active">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-code"></i>
+                    <h3>Masukkan URL Website</h3>
+                </div>
+                <div class="card-body">
+                    <div class="input-group">
+                        <label>URL Website</label>
+                        <input type="url" id="websiteUrl" placeholder="https://example.com" value="https://example.com">
+                        <small>Masukkan URL lengkap website yang ingin diambil kode HTML-nya</small>
+                    </div>
+                    <button class="btn-primary" onclick="fetchWebsiteCode()">
+                        <i class="fas fa-download"></i> Ambil Kode
+                    </button>
+                </div>
+            </div>
+
+            <div class="card" id="codeResult" style="display: none;">
+                <div class="card-header">
+                    <i class="fas fa-file-code"></i>
+                    <h3>Hasil Code</h3>
+                    <button class="btn-icon" onclick="copyCode()">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="code-tabs">
+                        <button class="code-tab active" onclick="showCode('html')">HTML</button>
+                        <button class="code-tab" onclick="showCode('css')">CSS</button>
+                        <button class="code-tab" onclick="showCode('js')">JavaScript</button>
+                    </div>
+                    <pre id="htmlCode" class="code-block active"><code></code></pre>
+                    <pre id="cssCode" class="code-block"><code></code></pre>
+                    <pre id="jsCode" class="code-block"><code></code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- YouTube MP3 Tab -->
+        <div id="youtube-tab" class="tab">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fab fa-youtube"></i>
+                    <h3>YouTube to MP3 Converter</h3>
+                </div>
+                <div class="card-body">
+                    <div class="input-group">
+                        <label>URL YouTube</label>
+                        <input type="url" id="youtubeUrl" placeholder="https://youtube.com/watch?v=...">
+                    </div>
+                    <button class="btn-primary" onclick="convertYoutubeToMp3()">
+                        <i class="fas fa-music"></i> Convert ke MP3
+                    </button>
+                </div>
+            </div>
+
+            <div class="card" id="youtubeResult" style="display: none;">
+                <div class="result-item">
+                    <img id="youtubeThumb" src="" alt="Thumbnail">
+                    <div class="result-info">
+                        <h4 id="youtubeTitle"></h4>
+                        <p id="youtubeDuration"></p>
+                        <button class="btn-download" onclick="downloadYoutubeMp3()">
+                            <i class="fas fa-download"></i> Download MP3
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TikTok Downloader Tab -->
+        <div id="tiktok-tab" class="tab">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fab fa-tiktok"></i>
+                    <h3>TikTok Video Downloader</h3>
+                </div>
+                <div class="card-body">
+                    <div class="input-group">
+                        <label>URL TikTok</label>
+                        <input type="url" id="tiktokUrl" placeholder="https://tiktok.com/@user/video/...">
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn-primary" onclick="downloadTikTok('mp3')">
+                            <i class="fas fa-music"></i> Download MP3
+                        </button>
+                        <button class="btn-primary" onclick="downloadTikTok('mp4')">
+                            <i class="fas fa-video"></i> Download MP4
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="tiktokResult" style="display: none;">
+                <div class="result-item">
+                    <video id="tiktokVideo" controls style="display: none;"></video>
+                    <audio id="tiktokAudio" controls style="display: none;"></audio>
+                    <div class="result-info">
+                        <h4 id="tiktokTitle"></h4>
+                        <p id="tiktokAuthor"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload MP3 Tab (like top4top) -->
+        <div id="upload-tab" class="tab">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Upload MP3 - Dapatkan Link</h3>
+                </div>
+                <div class="card-body">
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p>Drag & drop file MP3 disini atau klik untuk memilih</p>
+                        <input type="file" id="fileInput" accept=".mp3" style="display: none;">
+                        <button class="btn-primary" onclick="document.getElementById('fileInput').click()">
+                            Pilih File
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="uploadResult" style="display: none;">
+                <div class="card-header">
+                    <i class="fas fa-link"></i>
+                    <h3>Link Download</h3>
+                </div>
+                <div class="card-body">
+                    <div class="link-box">
+                        <input type="text" id="downloadLink" readonly>
+                        <button class="btn-icon" onclick="copyLink()">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="link-info">
+                        <p><i class="fas fa-database"></i> <span id="fileSize"></span></p>
+                        <p><i class="far fa-clock"></i> <span id="expireTime">24 jam</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script src="script.js"></script>
+</body>
+              </html>
